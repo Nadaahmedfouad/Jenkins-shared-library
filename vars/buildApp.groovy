@@ -1,7 +1,12 @@
 
 def call() {
     stage('Build Application') {
-        sh 'mvn test'
-        sh 'mvn clean package -DskipTests'
+        sh '''
+            echo "Building DemoApp with Maven..."
+            mvn clean package
+
+            echo "Checking generated JAR..."
+            ls -lh target/*.jar
+        '''
     }
 }
