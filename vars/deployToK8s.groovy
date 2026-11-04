@@ -13,6 +13,18 @@ def call(String deploymentFile, String imageName, String imageTag) {
             sh """
                 echo "Testing Kubernetes connection..."
                 kubectl config current-context
+                echo "Testing Kubernetes connection..."
+                
+                kubectl config current-context
+                
+                echo "Checking Kubernetes authentication..."
+                kubectl auth whoami
+                kubectl get namespace ivolve
+                
+                echo "Updating deployment image..."
+                sed -i \
+                  's|image: ${imageName}:.*|image: ${imageName}:${imageTag}|' \
+                  '${deploymentFile}'
 
                 echo "Updating deployment image..."
                 sed -i \
