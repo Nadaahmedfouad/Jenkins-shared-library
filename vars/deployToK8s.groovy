@@ -19,7 +19,10 @@ def call(String deploymentFile, String imageName, String imageTag) {
                 
                 echo "Checking Kubernetes authentication..."
                 kubectl auth whoami
-                kubectl get namespace ivolve
+                
+                echo "Checking deployment permissions..."
+                kubectl auth can-i get deployments -n ivolve
+                kubectl auth can-i patch deployments -n ivolve
                 
                 echo "Updating deployment image..."
                 sed -i \
